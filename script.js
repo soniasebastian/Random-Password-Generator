@@ -1,58 +1,67 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
-const num = '1234567890';
-var specialchars = '!@$%^&*()_+';
+const upperCaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const lowerCaseChars = 'abcdefghijklmnopqrstuvwxyz';
+const numbers = '1234567890';
+const specialChars = '!@$%^&*()_+';
 
 // Write password to the #password input
-function writePassword() {  
+function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
 }
 
-function generatePassword () {
+function generatePassword() {
   var passwordGeneratorKey = '';
   var password = '';
   var passwordLength = prompt("Enter the length of Password required (between 8-128) ");
-alert( typeof passwordLength);
-  // if(passwordLength.length > 0 && (typeof passwordLength) !== Number) {
-  //   alert("Please enter a number!")
-  //   generatePassword();
-  // }
 
-  if (passwordLength < 8) {
-    alert("Invalid! Password length is insufficient!")
-    generatePassword();
-}
-if (passwordLength > 128) {
-    alert("Invalid! Password length is too long!")
-    generatePassword();
-}
-  var isUpperCaseRequired = window.confirm ('whether upperCase is required?');
-  var islowerCaseRequired = window.confirm ('whether lowercase is required?');
-  var isNumberRequired = window.confirm ('whether number is required?');
-  var isSpecialcharacterRequired = window.confirm ('whether specialchars is required?');
+  if (passwordLength.length <= 0 || isNaN(passwordLength)) {
+    alert("Invalid  input! Please Enter a number between 8 and 128");
+    return generatePassword();
+    
+  }
+  if (passwordLength < 8 || passwordLength > 128) {
+    alert("Invalid  Password length ! Please Enter a number between 8 and 128");
+    return generatePassword();
+  }
+
+  var isUpperCaseRequired = window.confirm('whether upperCase is required?');
+  var islowerCaseRequired = window.confirm('whether lowercase is required?');
+  var isNumberRequired = window.confirm('whether number is required?');
+  var isSpecialcharacterRequired = window.confirm('whether specialchars is required?');
   if (isUpperCaseRequired) {
-    passwordGeneratorKey = upperCase;
+    passwordGeneratorKey = upperCaseChars;
+    password += getRandomValueFromString(upperCaseChars);
   }
   if (islowerCaseRequired) {
-    passwordGeneratorKey = passwordGeneratorKey + lowerCase;
+    passwordGeneratorKey = passwordGeneratorKey + lowerCaseChars;
+    password += getRandomValueFromString(lowerCaseChars);
   }
   if (isNumberRequired) {
-    passwordGeneratorKey = passwordGeneratorKey + num;
+    passwordGeneratorKey = passwordGeneratorKey + numbers;
+    password += getRandomValueFromString(numbers);
   }
-  if (isSpecialcharacterRequired){
-    passwordGeneratorKey = passwordGeneratorKey +specialchars;
-  }  
-  console.log(passwordGeneratorKey  + " lenght= " + passwordGeneratorKey.length);
-  for (var i = 0; i < passwordLength; i++) {
-    var randomNumber = Math.floor(Math.random() * passwordGeneratorKey.length);
-    password += passwordGeneratorKey.substring(randomNumber, randomNumber +1);
-   }
-   return password;
+  if (isSpecialcharacterRequired) {
+    passwordGeneratorKey = passwordGeneratorKey + specialChars;
+    password += getRandomValueFromString(specialChars);
+  }
+  if (passwordGeneratorKey.length <= 0) {
+    alert("Please select atleast one password requirement cirteria  ");
+    return generatePassword();
+  }
+  for (i = password.length; i < passwordLength; i++) {
+    // var randomNumber = Math.floor(Math.random() * passwordGeneratorKey.length);
+    password += getRandomValueFromString(passwordGeneratorKey);
+  }
+  return password;
 }
 
+//return a random character from the input string
+function getRandomValueFromString (value) {
+  var randomNumber = Math.floor(Math.random() * value.length);
+  return  value.substring(randomNumber, randomNumber + 1);
+}
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
