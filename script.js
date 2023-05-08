@@ -58,7 +58,7 @@ function generatePassword() {
   return password;
 }
 
-//return a random character from the input string
+//return a random character from the input stringgit add
 function getRandomValueFromString (value) {
   var randomNumber = Math.floor(Math.random() * value.length);
   return  value.substring(randomNumber, randomNumber + 1);

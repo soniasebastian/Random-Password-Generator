@@ -12,7 +12,7 @@ Application for allowing users for genarating password based on the user require
 ## Installation
 No installation required,Access the below link using any browser
 
-https://soniasebastian.github.io/Accessibility-challenge1-Horiseon/ 
+https://soniasebastian.github.io/Random-Password-Generator/
 
 
 ## Usage
